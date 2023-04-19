@@ -1,5 +1,7 @@
 package org.ffernandez.interfaces.modelo;
 
+import java.util.Objects;
+
 public class Cliente {
     private Integer id;
     private String nombre;
@@ -46,4 +48,13 @@ public class Cliente {
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true; // se verifica si los dos objetos son idénticos (es decir, apuntan a la misma referencia de memoria)
+        if (o == null || getClass() != o.getClass()) return false; // verifica si el objeto pasado como parámetro es nulo o si el objeto actual y el pasado como parámetro son de distinto tipo
+        Cliente cliente = (Cliente) o; // convierte el objeto pasado como parámetro a Cliente
+        return Objects.equals(id, cliente.id); // verifica si el id del objeto actual es igual al id del objeto pasado como parámetro
+    }
+
 }
