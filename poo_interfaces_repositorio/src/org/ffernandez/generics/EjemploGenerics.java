@@ -39,6 +39,10 @@ public class EjemploGenerics {
          imprimirClientes(clientesList);
          imprimirClientes(clientesPremiumList);
 
+        System.out.println("El maximo de 1, 15 y 8 es: " + maximo(1, 15, 8));
+        System.out.println("El maximo de 2.5, 20.5 y 14.5 es: " + maximo(2.5, 20.5, 14.5));
+        System.out.println("El maximo de zanahoria, manzana y pera es: " + maximo("zanahoria", "manzana", "pera"));
+
 
     }
 
