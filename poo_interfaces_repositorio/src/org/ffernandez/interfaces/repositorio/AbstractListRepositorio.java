@@ -5,20 +5,20 @@ import org.ffernandez.interfaces.modelo.Cliente;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientListRepositorio implements FullRepositorio {
+public abstract class AbstractListRepositorio<T> implements FullRepositorio<T> {
 
-    private List<Cliente> dataSource;
+    protected List<T> dataSource;
 
-    public ClientListRepositorio() {
+    public AbstractListRepositorio() {
         this.dataSource = new ArrayList<>();
     }
 
     @Override
-    public List<Cliente> listar() {
+    public List<T> listar() {
         return dataSource;
     }
 
-    @Override
+    /*@Override
     public Cliente porId(Integer id) {
         Cliente resultado = null;
         for (Cliente cli : dataSource) {
@@ -29,20 +29,22 @@ public class ClientListRepositorio implements FullRepositorio {
         }
         return resultado;
     }
+     */
 
     @Override
-    public void guardar(Cliente cliente) {
-        this.dataSource.add(cliente);
+    public void guardar(T t) {
+        this.dataSource.add(t);
 
     }
 
-    @Override
+   /* @Override
     public void editar(Cliente cliente) {
         Cliente c = this.porId(cliente.getId());
         c.setNombre(cliente.getNombre());
         c.setApellido(cliente.getApellido());
 
     }
+    */
 
     @Override
     public void eliminar(Integer id) {
@@ -50,7 +52,7 @@ public class ClientListRepositorio implements FullRepositorio {
 
     }
 
-    @Override
+    /*@Override
     public List<Cliente> listar(String campo, Direccion dir) {
 
         List<Cliente> listaOrdenada = new ArrayList<>(dataSource);
@@ -68,12 +70,15 @@ public class ClientListRepositorio implements FullRepositorio {
         });
         return listaOrdenada;
     }
+     */
 
     @Override
-    public List<Cliente> listar(int desde, int hasta) {
+    public List<T> listar(int desde, int hasta) {
         return dataSource.subList(desde, hasta);
     }
-    public static int ordenar(String campo ,Cliente a, Cliente b) {
+
+
+    /*public static int ordenar(String campo ,Cliente a, Cliente b) {
         int resultado = 0;
         switch (campo) {
             case "id" -> resultado = a.getId().compareTo(b.getId());
@@ -85,6 +90,7 @@ public class ClientListRepositorio implements FullRepositorio {
         }
         return resultado;
     }
+     */
 
 
     @Override

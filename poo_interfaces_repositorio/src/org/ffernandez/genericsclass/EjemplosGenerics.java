@@ -1,6 +1,17 @@
 package org.ffernandez.genericsclass;
 
 public class EjemplosGenerics {
+    public static <T> void imprmirCamion(Camion<T> camion){
+        for (T a : camion) {
+            if(a instanceof Animal){
+                System.out.println( ((Animal) a).getNombre() + " " + ((Animal) a).getEspecie());
+            } else if (a instanceof Automovil) {
+                System.out.println(((Automovil) a).getMarca());
+            } else if (a instanceof Maquinaria) {
+                System.out.println(((Maquinaria) a).getTipo());
+            }
+        }
+    }
     public static void main(String[] args) {
         Camion<Animal> transporteCaballos = new Camion<>(8);
 
@@ -10,10 +21,7 @@ public class EjemplosGenerics {
         transporteCaballos.agregarObjeto(new Animal("Apolo", "Caballo"));
         transporteCaballos.agregarObjeto(new Animal("Zeus", "Caballo"));
 
-        for (Animal a : transporteCaballos) {
-
-            System.out.println(a.getNombre() + " " + a.getEspecie());
-        }
+        imprmirCamion(transporteCaballos);
 
         Camion<Maquinaria> transporteMaquinaria = new Camion<>(6);
         transporteMaquinaria.agregarObjeto(new Maquinaria("Cargadora"));
@@ -21,10 +29,7 @@ public class EjemplosGenerics {
         transporteMaquinaria.agregarObjeto(new Maquinaria("Grúa"));
         transporteMaquinaria.agregarObjeto(new Maquinaria("Desmalezadora"));
 
-        for (Maquinaria m : transporteMaquinaria) {
-
-            System.out.println(m.getTipo());
-        }
+        imprmirCamion(transporteMaquinaria);
 
 
 
@@ -34,10 +39,9 @@ public class EjemplosGenerics {
         transAuto.agregarObjeto(new Automovil("Fiat"));
         transAuto.agregarObjeto(new Automovil("Renault"));
 
-        for (Automovil a: transAuto) {
+        imprmirCamion(transAuto);
 
-            System.out.println(a.getMarca());
-        }
+
 
 
 
