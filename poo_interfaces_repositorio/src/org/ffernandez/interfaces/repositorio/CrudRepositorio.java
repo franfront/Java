@@ -7,8 +7,8 @@ import java.util.List;
 public interface CrudRepositorio<T> {
     List<T> listar();
    T porId(Integer id);
-    void guardar(T cliente);
-    void editar(T cliente);
+    void guardar(T t);
+    void editar(T t);
     void eliminar(Integer id);
 
 
