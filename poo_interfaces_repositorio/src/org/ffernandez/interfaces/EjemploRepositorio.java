@@ -2,12 +2,13 @@ package org.ffernandez.interfaces;
 
 import org.ffernandez.interfaces.modelo.Cliente;
 import org.ffernandez.interfaces.repositorio.*;
+import org.ffernandez.interfaces.repositorio.list.ClienteListRepositorio;
 
 import java.util.List;
 
 public class EjemploRepositorio {
     public static void main(String[] args) {
-        FullRepositorio repo = new AbstractListRepositorio();
+        FullRepositorio<Cliente> repo = new ClienteListRepositorio();
         repo.guardar(new Cliente("Fernando", "Fernandez"));
         repo.guardar(new Cliente("Denise", "Monges"));
         repo.guardar(new Cliente("Luis", "Perez"));

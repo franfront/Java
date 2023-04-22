@@ -1,11 +1,12 @@
 package org.ffernandez.interfaces.repositorio;
 
-import org.ffernandez.interfaces.modelo.Cliente;
+
+import org.ffernandez.interfaces.modelo.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractListRepositorio<T> implements FullRepositorio<T> {
+public abstract class AbstractListRepositorio<T extends BaseEntity> implements FullRepositorio<T> {
 
     protected List<T> dataSource;
 
@@ -18,10 +19,10 @@ public abstract class AbstractListRepositorio<T> implements FullRepositorio<T> {
         return dataSource;
     }
 
-    /*@Override
-    public Cliente porId(Integer id) {
-        Cliente resultado = null;
-        for (Cliente cli : dataSource) {
+    @Override
+    public T porId(Integer id) {
+        T resultado = null;
+        for (T cli : dataSource) {
             if (cli.getId() != null && cli.getId().equals(id)) {
                 resultado = cli;
                 break;
@@ -29,7 +30,7 @@ public abstract class AbstractListRepositorio<T> implements FullRepositorio<T> {
         }
         return resultado;
     }
-     */
+
 
     @Override
     public void guardar(T t) {
@@ -37,14 +38,7 @@ public abstract class AbstractListRepositorio<T> implements FullRepositorio<T> {
 
     }
 
-   /* @Override
-    public void editar(Cliente cliente) {
-        Cliente c = this.porId(cliente.getId());
-        c.setNombre(cliente.getNombre());
-        c.setApellido(cliente.getApellido());
 
-    }
-    */
 
     @Override
     public void eliminar(Integer id) {
@@ -52,25 +46,8 @@ public abstract class AbstractListRepositorio<T> implements FullRepositorio<T> {
 
     }
 
-    /*@Override
-    public List<Cliente> listar(String campo, Direccion dir) {
 
-        List<Cliente> listaOrdenada = new ArrayList<>(dataSource);
 
-        listaOrdenada.sort((a, b) -> {
-
-            int resultado = 0;
-            if (dir == Direccion.ASC) {
-               resultado = ordenar(campo, a, b);
-            } else if (dir == Direccion.DESC) {
-               resultado = ordenar(campo, b, a);
-            }
-            return resultado;
-
-        });
-        return listaOrdenada;
-    }
-     */
 
     @Override
     public List<T> listar(int desde, int hasta) {
@@ -78,19 +55,7 @@ public abstract class AbstractListRepositorio<T> implements FullRepositorio<T> {
     }
 
 
-    /*public static int ordenar(String campo ,Cliente a, Cliente b) {
-        int resultado = 0;
-        switch (campo) {
-            case "id" -> resultado = a.getId().compareTo(b.getId());
 
-            case "nombre" -> resultado = a.getNombre().compareTo(b.getNombre());
-
-            case "apellido" -> resultado = a.getApellido().compareTo(b.getApellido());
-
-        }
-        return resultado;
-    }
-     */
 
 
     @Override
