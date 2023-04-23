@@ -4,13 +4,14 @@ import org.ffernandez.interfaces.modelo.Cliente;
 import org.ffernandez.interfaces.modelo.Producto;
 import org.ffernandez.interfaces.repositorio.AbstractListRepositorio;
 import org.ffernandez.interfaces.repositorio.Direccion;
+import org.ffernandez.interfaces.repositorio.excepciones.LecturaAccesoDatoException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductoListRepositorio  extends AbstractListRepositorio<Producto> {
     @Override
-    public void editar(Producto cliente) {
+    public void editar(Producto cliente) throws LecturaAccesoDatoException {
         Producto p = porId(cliente.getId());
         p.setDescripcion(cliente.getDescripcion());
         p.setPrecio(cliente.getPrecio());

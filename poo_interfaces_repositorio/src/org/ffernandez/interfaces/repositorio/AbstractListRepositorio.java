@@ -2,6 +2,8 @@ package org.ffernandez.interfaces.repositorio;
 
 
 import org.ffernandez.interfaces.modelo.BaseEntity;
+import org.ffernandez.interfaces.repositorio.excepciones.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,12 @@ public abstract class AbstractListRepositorio<T extends BaseEntity> implements F
     }
 
     @Override
-    public T porId(Integer id) {
+    public T porId(Integer id) throws LecturaAccesoDatoException {
+
+        if (id == null || id <= 0) {
+            throw new LecturaAccesoDatoException("El id no puede ser nulo o menor o igual a cero");
+        }
+
         T resultado = null;
         for (T cli : dataSource) {
             if (cli.getId() != null && cli.getId().equals(id)) {
@@ -28,12 +35,22 @@ public abstract class AbstractListRepositorio<T extends BaseEntity> implements F
                 break;
             }
         }
+        if (resultado == null)
+            throw new LecturaAccesoDatoException("No se encontro el cliente con id: " + id);
+
+
+
         return resultado;
     }
 
 
     @Override
-    public void guardar(T t) {
+    public void guardar(T t) throws EscrituraAccesoDatoException {
+        if(t == null)
+            throw new EscrituraAccesoDatoException("El objeto no puede ser nulo");
+
+        if(this.dataSource.contains(t))
+            throw new RegistroDuplicadoExcepcion("El objeto " + t.getId() +" ya existe en la base de datos");
         this.dataSource.add(t);
 
     }
@@ -41,7 +58,7 @@ public abstract class AbstractListRepositorio<T extends BaseEntity> implements F
 
 
     @Override
-    public void eliminar(Integer id) {
+    public void eliminar(Integer id) throws LecturaAccesoDatoException {
         this.dataSource.remove(this.porId(id));
 
     }
