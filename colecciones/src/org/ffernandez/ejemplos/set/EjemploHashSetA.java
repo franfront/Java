@@ -12,6 +12,7 @@ public class EjemploHashSetA {
         hs.add("tres");
         hs.add("cuatro");
         hs.add("cinco");
+        hs.add("cinco");
 
         System.out.println("Contenido del HashSet: " + hs);
 
