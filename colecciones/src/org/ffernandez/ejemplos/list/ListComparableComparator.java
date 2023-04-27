@@ -1,4 +1,4 @@
-package org.ffernandez.ejemplos.set;
+package org.ffernandez.ejemplos.list;
 
 import org.ffernandez.ejemplos.modelo.Alumno;
 
@@ -7,8 +7,8 @@ import java.util.*;
 public class ListComparableComparator {
     public static void main(String[] args) {
         //Set<Alumno> sa = new HashSet<>();
-        List<Alumno> sa = new ArrayList<>();  //ArrayList no garantiza unicidad y se ordenan como se insertan
-        //List<Alumno> sa = new LinkedList<>(); LinkedList no garantiza unicidad y se ordenan como se insertan
+       // List<Alumno> sa = new ArrayList<>();  ArrayList no garantiza unicidad y se ordenan como se insertan
+        List<Alumno> sa = new LinkedList<>(); //LinkedList no garantiza unicidad y se ordenan como se insertan
         sa.add(new Alumno("Juan", 5));
         sa.add(new Alumno("Pedro", 7));
         sa.add(new Alumno("Ana", 6));
