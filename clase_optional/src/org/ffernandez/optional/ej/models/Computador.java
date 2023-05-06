@@ -1,8 +1,11 @@
 package org.ffernandez.optional.ej.models;
 
+import java.util.Optional;
+
 public class Computador {
     private String nombre;
     private String marca;
+    private Procesador procesador;
 
 
     public Computador(String nombre, String marca) {
@@ -24,6 +27,14 @@ public class Computador {
 
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    public Optional<Procesador> getProcesador() {
+        return Optional.ofNullable(procesador);
+    }
+
+    public void setProcesador(Procesador procesador) {
+        this.procesador = procesador;
     }
 
     @Override

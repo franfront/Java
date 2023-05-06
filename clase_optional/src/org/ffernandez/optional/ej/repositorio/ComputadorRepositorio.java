@@ -1,6 +1,8 @@
 package org.ffernandez.optional.ej.repositorio;
 
 import org.ffernandez.optional.ej.models.Computador;
+import org.ffernandez.optional.ej.models.Fabricante;
+import org.ffernandez.optional.ej.models.Procesador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +13,11 @@ public class ComputadorRepositorio implements Repositorio<Computador>{
 
     public ComputadorRepositorio() {
         dataSource = new ArrayList<>();
-        dataSource.add(new Computador("HP Pavilion", "HP"));
-        dataSource.add(new Computador("MacBook Pro", "Apple"));
-        dataSource.add(new Computador("Aspire 5", "Acer"));
+        Procesador procesador1 = new Procesador("Intel Core i5", new Fabricante("Intel"));
+        Computador acer = new Computador("Aspire 5", "Acer");
+        acer.setProcesador(procesador1);
+        dataSource.add(acer);
+
         dataSource.add(new Computador("Inspiron 15", "Dell"));
     }
 
