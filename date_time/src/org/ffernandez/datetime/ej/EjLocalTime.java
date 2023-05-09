@@ -2,6 +2,7 @@ package org.ffernandez.datetime.ej;
 
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class EjLocalTime {
     public static void main(String[] args) {
@@ -22,6 +23,21 @@ public class EjLocalTime {
 
         LocalTime onceCuarenta = LocalTime.of(23, 20).plusMinutes(20);
         System.out.println(onceCuarenta);
+
+        boolean esAnterior = LocalTime.of(23, 20).isBefore(LocalTime.of(23, 21));
+        System.out.println(esAnterior);
+
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String horaFormateada = ahora.format(df);
+        System.out.println(horaFormateada);
+
+        horaFormateada = df.format(ahora);
+        System.out.println(horaFormateada);
+
+        LocalTime max = LocalTime.MAX;
+        LocalTime min = LocalTime.MIN;
+        System.out.println(max);
+        System.out.println(min);
 
 
 
