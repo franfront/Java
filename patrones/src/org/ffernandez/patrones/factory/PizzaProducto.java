@@ -28,6 +28,10 @@ public abstract class PizzaProducto {
     }
     public abstract void cortar();
 
+    public String getNombre() {
+        return nombre;
+    }
+
     @Override
     public String toString() {
         return "PizzaProducto{" +
