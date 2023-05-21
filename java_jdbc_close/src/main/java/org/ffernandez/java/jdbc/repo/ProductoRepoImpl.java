@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ProductoRepoImpl implements Repositorio<Producto> {
 
-    private Connection getConnection() {
+    private Connection getConnection() throws SQLException {
         return ConexionBase.getConexion();
     }
 
@@ -18,7 +18,8 @@ public class ProductoRepoImpl implements Repositorio<Producto> {
     public List<Producto> listar() {
         List<Producto> productos = new ArrayList<>();
 
-        try(Statement stmt = getConnection().createStatement();
+        try( Connection conn = getConnection();
+                Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT p.*, c.nombre AS categoria FROM productos AS p " + "inner join categorias AS c on (p.categoria_id = c.id)");
             )
         {
@@ -39,7 +40,8 @@ public class ProductoRepoImpl implements Repositorio<Producto> {
     @Override
     public Producto porId(Long id) {
         Producto producto = null;
-        try(PreparedStatement stmt = getConnection().prepareStatement("SELECT p.*, c.nombre as categoria FROM productos as p " + "inner join categorias as c ON (p.categoria_id = c.id) WHERE p.id = ?")){
+        try(    Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement("SELECT p.*, c.nombre as categoria FROM productos as p " + "inner join categorias as c ON (p.categoria_id = c.id) WHERE p.id = ?")){
 
             stmt.setLong(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -62,7 +64,8 @@ public class ProductoRepoImpl implements Repositorio<Producto> {
         } else {
             sql = "INSERT INTO productos (nombre, precio, categoria_id, fecha_registro) VALUES (?, ?, ?, ?)";
         }
-        try(PreparedStatement stmt = getConnection().prepareStatement(sql)){ // Establecer conexión
+        try(    Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)){ // Establecer conexión
             stmt.setString(1, producto.getNombre());
             stmt.setInt(2, producto.getPrecio());
             stmt.setLong(3, producto.getCategoria().getId());
@@ -86,7 +89,8 @@ public class ProductoRepoImpl implements Repositorio<Producto> {
 
     @Override
     public void eliminar(Long id) {
-        try(PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM productos WHERE id = ?")){
+        try(    Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement("DELETE FROM productos WHERE id = ?")){
             stmt.setLong(1, id);
             stmt.executeUpdate(); // Ejecutar la consulta
         } catch (Exception e) {

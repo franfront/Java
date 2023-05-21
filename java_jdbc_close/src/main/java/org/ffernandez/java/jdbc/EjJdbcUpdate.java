@@ -6,18 +6,17 @@ import org.ffernandez.java.jdbc.repo.ProductoRepoImpl;
 import org.ffernandez.java.jdbc.repo.Repositorio;
 import org.ffernandez.java.jdbc.util.ConexionBase;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 
-import java.sql.*;
-
-public class EjJdbc {
+public class EjJdbcUpdate {
     public static void main(String[] args) {
 
 
 
 
-        try (Connection conn = ConexionBase.getConexion()) // Establecer conexión
-        {
+
             Repositorio<Producto> repo = new ProductoRepoImpl();
             System.out.println("================= listar ====================");
             repo.listar().forEach(System.out::println);
@@ -25,27 +24,23 @@ public class EjJdbc {
             System.out.println("================= por id ====================");
             System.out.println(repo.porId(2L));
 
-            System.out.println("================= insertar ====================");
+            System.out.println("================= editar ====================");
             Producto producto = new Producto();
-            producto.setNombre("Procesador Intel");
-            producto.setPrecio(40000);
-            producto.setFechaAlta(new Date());
+            producto.setId(17L);
+            producto.setNombre("Cafetera");
+            producto.setPrecio(15000);
 
             Categoria categoria = new Categoria();
-            categoria.setId(3L);
+            categoria.setId(2L);
             producto.setCategoria(categoria);
 
             repo.guardar(producto);
             repo.listar().forEach(System.out::println);
-            System.out.println("Producto guardado");
+            System.out.println("Producto actualizado");
 
 
 
 
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
         }
 

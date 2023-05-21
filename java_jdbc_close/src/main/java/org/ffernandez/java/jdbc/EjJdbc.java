@@ -16,8 +16,7 @@ public class EjJdbc {
 
 
 
-        try (Connection conn = ConexionBase.getConexion()) // Establecer conexión
-        {
+
             Repositorio<Producto> repo = new ProductoRepoImpl();
             System.out.println("================= listar ====================");
             repo.listar().forEach(System.out::println);
@@ -35,7 +34,7 @@ public class EjJdbc {
             categoria.setId(3L);
             producto.setCategoria(categoria);
 
-            repo.guardar(producto);
+            //repo.guardar(producto);
             repo.listar().forEach(System.out::println);
             System.out.println("Producto guardado");
 
@@ -43,9 +42,6 @@ public class EjJdbc {
 
 
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
         }
 
