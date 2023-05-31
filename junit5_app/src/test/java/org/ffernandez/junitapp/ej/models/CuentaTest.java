@@ -1,6 +1,7 @@
 package org.ffernandez.junitapp.ej.models;
 
 
+import org.ffernandez.junitapp.ej.exceptions.DineroInsuficienteException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -53,4 +54,51 @@ class CuentaTest {
         assertEquals(1100, cuenta.getSaldo().intValue());
         assertEquals("1100.12555", cuenta.getSaldo().toPlainString());
     }
+
+    @Test
+    void testDineroInsuficiente() {
+        Cuenta cuenta = new Cuenta("Franco", new BigDecimal("1000.12555"));
+        Exception e = assertThrows(DineroInsuficienteException.class, () ->{
+           cuenta.debito(new BigDecimal(1500));
+        });
+        String actual = e.getMessage();
+        String esperado = "Dinero Insuficiente";
+        assertEquals(esperado, actual);
+    }
+
+    @Test
+    void testTranferir() {
+        Cuenta c1 = new Cuenta("Franco", new BigDecimal("2500"));
+        Cuenta c2 = new Cuenta("Deni", new BigDecimal("4000.5555"));
+        Banco banco = new Banco();
+        banco.setNombre("Banco de supervillanos");
+        banco.transferir(c2, c1, new BigDecimal(500));
+        assertEquals("3500.5555", c2.getSaldo().toPlainString());
+        assertEquals("3000", c1.getSaldo().toPlainString());
+    }
+
+    @Test
+    void testBancoCuentas() {
+        Cuenta c1 = new Cuenta("Franco", new BigDecimal("2500"));
+        Cuenta c2 = new Cuenta("Deni", new BigDecimal("4000.5555"));
+        Banco banco = new Banco();
+        banco.addCuenta(c1);
+        banco.addCuenta(c2);
+        banco.setNombre("Banco de supervillanos");
+        banco.transferir(c2, c1, new BigDecimal(500));
+        assertEquals("3500.5555", c2.getSaldo().toPlainString());
+        assertEquals("3000", c1.getSaldo().toPlainString());
+
+        assertEquals(2, banco.getCuentas().size());
+        assertEquals("Banco de supervillanos", c1.getBanco().getNombre());
+//        assertEquals("Deni", banco.getCuentas().stream()
+//                .filter(c -> c.getPersona().equals("Deni"))
+//                .findFirst()
+//                .get()
+//                .getPersona());
+
+        assertTrue(banco.getCuentas().stream()
+                .anyMatch(c -> c.getPersona().equals("Deni"))); // si hay alguna cuenta que cumpla con la condición
+    }
+
 }
