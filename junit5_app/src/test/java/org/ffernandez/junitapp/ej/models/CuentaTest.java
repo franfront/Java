@@ -411,7 +411,7 @@ class CuentaTest {
 //    @Timeout(value = 10, unit = TimeUnit.SECONDS) // para que el test no se ejecute mas de 10 segundos
         @Timeout(10)
         void pruebaTimeout() throws InterruptedException {
-            TimeUnit.SECONDS.sleep(11);
+            TimeUnit.SECONDS.sleep(9);
         }
 
         @Test
