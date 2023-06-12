@@ -2,7 +2,10 @@ package org.ffernandez.appmockito.ej.services;
 
 import org.ffernandez.appmockito.ej.models.Examen;
 
+import java.util.Optional;
+
 public interface ExamenService {
-    Examen findExamenPorNombre(String nombre);
+    Optional<Examen> findExamenPorNombre(String nombre);
+    Examen findExamenPorNombreConPreguntas(String nombre);
 
 }
