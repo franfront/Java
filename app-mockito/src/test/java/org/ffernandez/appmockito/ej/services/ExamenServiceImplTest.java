@@ -64,4 +64,33 @@ class ExamenServiceImplTest {
         assertTrue(examen.getPreguntas().contains("aritmetica"));
 
     }
+
+    @Test
+    void testPreguntasExamenVerify() {
+        when(repository.findAll()).thenReturn(Datos.EXAMENES);
+        when(preguntaRepository.findPreguntasPorExamenId(anyLong())).thenReturn(Datos.PREGUNTAS);
+        Examen examen = service.findExamenPorNombreConPreguntas("Matematicas");
+        assertEquals(5, examen.getPreguntas().size());
+        assertTrue(examen.getPreguntas().contains("aritmetica"));
+
+        verify(repository).findAll(); // verifica que se haya llamado al metodo findAll() del mock repository
+        verify(preguntaRepository).findPreguntasPorExamenId(1L); // verifica que se haya llamado al metodo findPreguntasPorExamenId() del mock preguntaRepository
+
+    }
+
+    @Test
+    void testExamenVerifyEmpty() {
+        when(repository.findAll()).thenReturn(Datos.EXAMENES);
+        when(preguntaRepository.findPreguntasPorExamenId(anyLong())).thenReturn(Datos.PREGUNTAS);
+        Examen examen = service.findExamenPorNombreConPreguntas("Matematicas2");
+
+        assertNull(examen);
+
+        verify(repository).findAll(); // verifica que se haya llamado al metodo findAll() del mock repository
+        verify(preguntaRepository).findPreguntasPorExamenId(anyLong()); // verifica que se haya llamado al metodo findPreguntasPorExamenId() del mock preguntaRepository
+
+
+
+
+    }
 }
