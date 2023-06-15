@@ -6,7 +6,12 @@ import org.ffernandez.appmockito.ej.repositories.ExamenRepository;
 import org.ffernandez.appmockito.ej.repositories.PreguntaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,16 +21,25 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+
+@ExtendWith(MockitoExtension.class) // habilita las anotaciones mock
 class ExamenServiceImplTest {
+    @Mock
     ExamenRepository repository;
-    ExamenService service;
+    @Mock
     PreguntaRepository preguntaRepository;
+
+    @InjectMocks
+    ExamenServiceImpl service;
 
     @BeforeEach
     void setUp() {
-       repository = mock(ExamenRepoOtro.class); // creamos un mock que simula el comportamiento de la clase ExamenRepository
-       preguntaRepository = mock(PreguntaRepository.class);
-        service = new ExamenServiceImpl(repository, preguntaRepository);
+        MockitoAnnotations.openMocks(this); // otra forma de habilitar las anotaciones mock
+
+
+//       repository = mock(ExamenRepoOtro.class); // creamos un mock que simula el comportamiento de la clase ExamenRepository
+//       preguntaRepository = mock(PreguntaRepository.class);
+//       service = new ExamenServiceImpl(repository, preguntaRepository);
 
     }
 
