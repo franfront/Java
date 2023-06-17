@@ -11,7 +11,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -105,6 +107,33 @@ class ExamenServiceImplTest {
 
 
 
+
+    }
+
+    @Test
+    void testSaveExamen() {
+        // Given
+        Examen newExamen = Datos.EXAMEN;
+        newExamen.setPreguntas(Datos.PREGUNTAS);
+        when(repository.guardar(any(Examen.class))).then(new Answer<Examen>() {
+
+            Long secuencia = 8L;
+            @Override
+            public Examen answer(InvocationOnMock invocation) throws Throwable { // se ejecuta cuando se llama al metodo guardar() del mock repository
+                Examen examen = invocation.getArgument(0); // obtiene el argumento del metodo guardar() del mock repository
+                examen.setId(secuencia++);
+                return examen;
+            }
+        });
+        // When
+        Examen examen = service.guardar(newExamen);
+
+        // Then
+        assertNotNull(examen.getId());
+        assertEquals(10L, examen.getId());
+        assertEquals("Fisica", examen.getNombre());
+        verify(repository).guardar(any(Examen.class)); // verifica que se haya llamado al metodo guardar() del mock repository
+        verify(preguntaRepository).guardarVarias(anyList()); // verifica que se haya llamado al metodo guardarVarias() del mock preguntaRepository
 
     }
 }

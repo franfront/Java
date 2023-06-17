@@ -7,6 +7,11 @@ import java.util.concurrent.TimeUnit;
 
 public class ExamenRepoOtro implements ExamenRepository {
     @Override
+    public Examen guardar(Examen examen) {
+        return null;
+    }
+
+    @Override
     public List<Examen> findAll() {
         try {
             TimeUnit.SECONDS.sleep(5);
